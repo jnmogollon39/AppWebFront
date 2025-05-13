@@ -10,3 +10,16 @@ const server = http.createServer((req, res) => {
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}/`);
 });
+
+const express = require('express');
+const app = express();
+
+const BLOB_BASE_URL = 'https://webappstacc.blob.core.windows.net/webappblob>';
+
+app.get('/imagen/:nombre', (req, res) => {
+  const nombre = req.params.nombre;
+  const url = `${BLOB_BASE_URL}/${nombre}`;
+
+  // Redirige directamente al recurso de Blob
+  res.redirect(url);
+});
