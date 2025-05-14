@@ -26,3 +26,7 @@ app.get('/', (req, res) => {
     </html>
   `);
 });
+
+app.listen(port, () => {
+  console.log(`App corriendo en http://localhost:${port}`);
+});
