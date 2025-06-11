@@ -1,32 +1,24 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const port = process.env.PORT || 3000;
+// src/FormComponent.jsx
+import { useState } from "react";
 
+export default function FormComponent() {
+  const [name, setName] = useState("");
 
-//const server = http.createServer((req, res) => {
-  //res.statusCode = 200;
-  //const msg = 'Hello Node prueba de modificación de despliegue 1!\n'
-  //res.end(msg);
-//});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await fetch("https://intgrfunction.azurewebsites.net/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    });
+    alert("Enviado a backend");
+  };
 
-//server.listen(port, () => {
-  //console.log(`Server running on http://localhost:${port}/`);
-//});
-
-app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-    <head><title>Imagen desde Blob Storage</title></head>
-    <body>
-      <h1>Mi imagen</h1>
-      <img src="https://webappstacc.blob.core.windows.net/webappblob/Ucatolica.png" alt="Ucatolica" width="400" />
-    </body>
-    </html>
-  `);
-});
-
-app.listen(port, () => {
-  console.log(`App corriendo en http://localhost:${port}`);
-});
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Nombre:</label>
+      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      <button type="submit">Enviar</button>
+    </form>
+  );
+}
