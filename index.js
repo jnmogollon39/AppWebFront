@@ -11,7 +11,7 @@ export default function FormComponent() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name }),
     });
-    alert("Enviado a backend");
+    alert("Enviado al backend");
   };
 
   return (
